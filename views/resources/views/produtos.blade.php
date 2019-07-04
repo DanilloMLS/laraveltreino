@@ -18,6 +18,11 @@
             <h1>Temos vários produtos.</h1>
         @endif
 
+        {{-- repete os comandos dentro do bloco para cada item no array --}}
+        @foreach ($produtos as $produto)
+            <p>Nome: {{$produto}}</p>
+        @endforeach
+
     @else
         <h2>Variável produtos não foi passada como parâmetro.</h2>
     @endif
