@@ -48,3 +48,11 @@ Route::get('/email/{email}', function ($email) {
 	else
 		return view('erro');
 });
+
+Route::get('/produtos','ProdutoControlador@listar');
+
+Route::get('/secaoprodutos/{palavra}','ProdutoControlador@secaoprodutos');
+
+Route::get('/mostraropcoes','ProdutoControlador@mostrar_opcoes');
+
+Route::get('/opcoes/{opcao}','ProdutoControlador@opcoes');
