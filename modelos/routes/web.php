@@ -86,3 +86,62 @@ Route::get('/ids123', function () {
         echo "nome: " . $c->nome . "<br> ";
     }
 });
+
+Route::get('/todas', function () {
+    $categorias = Categoria::withTrashed()->get();
+    foreach ($categorias as $c) {
+        echo "id: " . $c->id . ", ";
+        echo "nome: " . $c->nome;
+
+        if ($c->trashed()) {
+            echo "(apagado) <br>";
+        } else {
+            echo "<br>";
+        }
+        
+    }
+});
+
+//encontra até itens apagados com soft delete
+Route::get('/ver/{id}', function ($id) {
+    //$cat = Categoria::withTrashed()->find($id);
+    $cat = Categoria::withTrashed()->where('id',$id)->get()->first();
+    if (isset($cat)) {
+        echo "id: " . $cat->id . ", ";
+        echo "nome: " . $cat->nome . "<br> ";
+    } else {
+        echo "<h1>Categoria não encontrada</h1>";
+    } 
+});
+
+//somente as cateorias apagadas
+Route::get('/somenteapagadas', function () {
+    $categorias = Categoria::onlyTrashed()->get();
+    foreach ($categorias as $c) {
+        echo "id: " . $c->id . ", ";
+        echo "nome: " . $c->nome . "<br> ";
+    }
+});
+
+Route::get('/restaurar/{id}', function ($id) {
+    $cat = Categoria::withTrashed()->find($id);
+    if (isset($cat)) {
+        $cat->restore();
+        echo "Categoria restaurada: " . $cat->id . ", ";
+        echo "<a href=\"/\">Listar todas</a>";
+    } else {
+        echo "<h1>Categoria não encontrada</h1>";
+    } 
+});
+
+Route::get('/apagarpermanente/{id}', function ($id) {
+    $cat = Categoria::withTrashed()->find($id);
+
+    if (isset($cat)) {
+        $cat->forceDelete();
+        return redirect('/todas');
+    } else {
+        echo "<h1>Categoria não encontrada</h1>";
+    }
+    
+});
