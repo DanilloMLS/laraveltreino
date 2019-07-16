@@ -117,3 +117,53 @@ Route::get('/categorias', function () {
         echo "nome: ". $cat->nome . "<br>";
     }
 });
+
+//inserção de dados
+Route::get('/novascategorias', function(){
+    DB::table('categorias')->insert([
+        ['nome'=>'Alimentos'],
+        ['nome'=>'Informática'],
+        ['nome'=>'Cozinha']
+    ]);
+});
+
+//inserção que retorna na tela o ID do que foi inserido
+Route::get('/novascategorias2', function(){
+    $id = DB::table('categorias')->insertGetId(['nome'=>'Carros']);
+    echo "Novo ID =  $id <br>";
+});
+
+//atualização de dados do banco
+Route::get('/atualizandocategorias', function () {
+    $cat = DB::table('categorias')->where('id',1)->first();
+    echo "<p> Antes da atualização</p>";
+    echo "id: " . $cat->id . "; ";
+    echo "nome: " . $cat->nome . "; ";
+    DB::table('categorias')->where('id',1)->update(['nome'=>'Roupas infantis']);
+    $cat = DB::table('categorias')->where('id',1)->first();
+    echo "<p> Depois da atualização</p>";
+    echo "id: " . $cat->id . "; ";
+    echo "nome: " . $cat->nome . "; ";
+});
+
+//remoção de dados do banco
+Route::get('/removendocategorias', function () {
+    echo "<p> Antes da remoção</p>";
+    
+    $cats = DB::table('categorias')->get();
+    foreach ($cats as $cat) {
+        echo "id: " . $cat->id . "; ";
+        echo "nome: " . $cat->nome . "<br>";
+    }
+    echo "<hr>";
+
+    //DB::table('categorias')->where('id',1)->delete();
+    //DB::table('categorias')->whereNotIn('id',[1-6])->delete();
+
+    echo "<p> Depois da atualização</p>";
+    $cats = DB::table('categorias')->get();
+    foreach ($cats as $cat) {
+        echo "id: " . $cat->id . "; ";
+        echo "nome: " . $cat->nome . "<br>";
+    }
+});
