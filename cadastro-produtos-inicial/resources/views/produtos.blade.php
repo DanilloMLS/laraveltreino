@@ -22,7 +22,7 @@
         </table>     
     </div>
     <div class="card-footer">
-        <button class="btn btn-sm btn-primary" role="button" >Novo produto</button>
+        <button class="btn btn-sm btn-primary" role="button" onclick="novoProduto()">Novo produto</button>
     </div>
 
     <div class="modal" tabindex="-1" role="dialog" id="dlgProdutos">
@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="nomeProduto" class="control-label">Nome do produto</label>
+                            <label for="deptoProduto" class="control-label">Departamento do produto</label>
                             <div class="input-group">
                                 <select class="form-control" id="deptoProduto">
 
@@ -75,4 +75,16 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('javascript')
+    <script type="text/javascript">
+        function novoProduto() {
+            $('#id').val('');
+            $('#nomeProduto').val('');
+            $('#precoProduto').val('');
+            $('#qtdeProduto').val('');
+            $('#dlgProdutos').modal('show')
+        }
+    </script>
 @endsection
