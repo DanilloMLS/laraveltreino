@@ -46,12 +46,12 @@ class ClienteController extends Controller
         $mensagens = [
             'required' => 'O atributo :attribute não pode estar em branco',
             'nome.required' => 'O nome é requerido',
-            'nome.min' => 'Nome deve ter pelo mesnos três letras',
+            'nome.min' => 'Nome deve ter pelo menos três letras',
             'email.required' => 'Digite um endereço de e-mail',
             'email.email' => 'Digite um email válido'
         ];
 
-        $request->validate([$regras, $mensagens]);
+        $request->validate($regras, $mensagens);
 
         /**
          * $request->validade([

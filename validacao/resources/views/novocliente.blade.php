@@ -33,21 +33,45 @@
                             </div>
                             <div class="form-group">
                                 <label for="idade">Idade do Cliente</label>
-                                <input type="number" id="idade" class="form-control" name="idade" placeholder="Idade do Cliente">
+                                <input type="number" id="idade"
+                                class="form-control {{$errors->has('idade') ? 'is-invalid' : ''}}"
+                                name="idade" placeholder="Idade do Cliente">
+                                @if ($errors->has('idade'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('idade')}}
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="endereco">Endereço do Cliente</label>
-                                <input type="text" id="endereco" class="form-control" name="endereco" placeholder="Endereço do Cliente">
+                                <input type="text" id="endereco"
+                                class="form-control {{$errors->has('idade') ? 'is-invalid' : ''}}"
+                                name="endereco" placeholder="Endereço do Cliente">
+                                @if ($errors->has('endereco'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('endereco')}}
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="email">E-mail do Cliente</label>
-                                <input type="text" id="email" class="form-control" name="email" placeholder="E-mail do Cliente">
+                                <input type="text" id="email"
+                                class="form-control {{$errors->has('idade') ? 'is-invalid' : ''}}"
+                                name="email" placeholder="E-mail do Cliente">
+                                @if ($errors->has('email'))
+                                    <div class="invalid-feedback">
+                                        {{$errors->first('email')}}
+                                    </div>
+                                @endif
                             </div>
                             <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
                             <button type="cancel" class="btn btn-primary btn-sm">Cancelar</button>
                         </form>
                     </div>
-                    @if ($errors->any())
+
+                    {{-- Imprime em elementos tipo alert que aparecem abaixo do formulário --}}
+                    
+                    {{-- @if ($errors->any())
                         <div class="card-footer">
                             @foreach ($errors->all() as $error)
                                 <div class="alert alert-danger" role="alert">
@@ -55,7 +79,7 @@
                                 </div>
                             @endforeach
                         </div>
-                    @endif
+                    @endif --}}
                 </div>
             </div>
         </div>
