@@ -37,6 +37,9 @@ Route::get('/enderecos', function () {
     $enderecos = Endereco::all();
     foreach ($enderecos as $e ) {
         echo "<p>Cliente: ". $e->cliente_id ."</p>";
+        //o método belongsTo() é parecido com o hasOne()
+        echo "<p>Nome: ". $e->cliente->nome ."</p>";
+        echo "<p>Telefone: ". $e->cliente->telefone ."</p>";
         echo "<p>Rua: ". $e->rua ."</p>";
         echo "<p>Número: ". $e->numero ."</p>";
         echo "<p>Bairro: ". $e->bairro ."</p>";
@@ -45,4 +48,45 @@ Route::get('/enderecos', function () {
         echo "<p>CEP: ". $e->cep ."</p>";
         echo "<hr>";
     }
+});
+
+Route::get('/inserir', function () {
+    $c = new Cliente();
+    $c->nome = "Jose Almeida";
+    $c->telefone = "11 97878-7878";
+    $c->save();
+
+    $e = new Endereco();
+    $e->rua = "Av. do Estado";
+    $e->numero = 400;
+    $e->bairro = "Centro";
+    $e->cidade = "São Paulo";
+    $e->uf = "SP";
+    $e->cep = "45612-000";
+
+    //mesmo sendo entidades diferentes, é possível salvar desse forma
+    //através de relacionamentos
+    //é necessário ter atenção no padrão de nome dos campos para isso dar certo
+    //id e entidade_id
+    $c->endereco()->save($e);
+});
+
+Route::get('/clientes/json', function () {
+    //$clientes = Cliente::all();
+
+    //o Laravel usa uma estratégia do tipo Lazy Loading para carregar relacionamentos
+    //então é necessário passsar por parâmetro o relacionamento para carregar os endereços
+    //Eager Loading
+    $clientes = Cliente::with(['endereco'])->get();
+    return $clientes->toJson();
+});
+
+Route::get('/enderecos/json', function () {
+    //$clientes = Cliente::all();
+
+    //o Laravel usa uma estratégia do tipo Lazy Loading para carregar relacionamentos
+    //então é necessário passsar por parâmetro o relacionamento para carregar os endereços
+    //Eager Loading
+    $enderecos = Endereco::with(['cliente'])->get();
+    return $enderecos->toJson();
 });
