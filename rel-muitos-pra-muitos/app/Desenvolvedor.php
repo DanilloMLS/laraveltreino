@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Desenvolvedor extends Model
 {
     function projetos(){
-        return $this->belongsToMany('App\Projeto', 'alocacaos');
+        return $this->belongsToMany('App\Projeto', 'alocacaos')->withPivot('horas_semanais');
     }
 }

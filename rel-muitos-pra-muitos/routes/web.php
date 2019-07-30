@@ -25,7 +25,8 @@ Route::get('/desenvolvedor_projetos', function () {
             foreach ($d->projetos as $p ) {
                 echo "<li>";
                 echo "<p>Nome ".$p->nome."</p>";
-                echo "<p>Horas ".$p->estimativa_horas."</p>";
+                echo "<p>Horas do projeto ".$p->estimativa_horas."</p>";
+                echo "<p>Horas trabalhadas ".$p->pivot->horas_semanais."</p>";
                 echo "</li>";
             }
             echo "</ul>";
@@ -33,4 +34,25 @@ Route::get('/desenvolvedor_projetos', function () {
         echo "<hr>";
     }
     //return $desenvolvedores->toJson();
+});
+
+Route::get('/projeto_desenvolvedores', function () {
+    $projetos = Projeto::with('desenvolvedores')->get();
+    foreach ($projetos as $p ) {
+        echo "<p>Nome do projeto: ".$p->nome."</p>";
+        echo "<p>Cargo: ".$p->estimativa_horas."</p>";
+        if (count($p->desenvolvedores) > 0) {
+            echo "Desenvolvedores: <br>";
+            echo "<ul>";
+            foreach ($p->desenvolvedores as $d ) {
+                echo "<li>";
+                echo "<p>Nome ".$d->nome."</p>";
+                echo "<p>Cargo ".$d->cargo."</p>";
+                echo "<p>Horas trabalhadas ".$d->pivot->horas_semanais."</p>";
+                echo "</li>";
+            }
+            echo "</ul>";
+        }
+    }
+    //return $projetos->toJson();
 });
