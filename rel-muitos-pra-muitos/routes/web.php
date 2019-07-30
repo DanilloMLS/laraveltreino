@@ -14,6 +14,7 @@ use App\Projeto;
 use App\Desenvolvedor;
 use App\Alocacao;
 
+//lista os projetos de cada desenvolvedor
 Route::get('/desenvolvedor_projetos', function () {
     $desenvolvedores = Desenvolvedor::with('projetos')->get();
     foreach ($desenvolvedores as $d ) {
@@ -36,6 +37,7 @@ Route::get('/desenvolvedor_projetos', function () {
     //return $desenvolvedores->toJson();
 });
 
+//lista os desenvolvedores alocados em cada projeto
 Route::get('/projeto_desenvolvedores', function () {
     $projetos = Projeto::with('desenvolvedores')->get();
     foreach ($projetos as $p ) {
@@ -55,4 +57,24 @@ Route::get('/projeto_desenvolvedores', function () {
         }
     }
     //return $projetos->toJson();
+});
+
+//faz alocação de desenvolvedores em projetos
+Route::get('/alocar', function () {
+    $proj = Projeto::find(4);
+    if (isset($proj)) {
+        //$proj->desenvolvedores()->attach(1, ['horas_semanais' => 50]);
+        $proj->desenvolvedores()->attach([
+            2 => ['horas_semanais' => 20],
+            3 => ['horas_semanais' => 30],
+        ]);
+    }
+});
+
+//desaloca os desenvolvedores de algum projeto
+Route::get('/desalocar', function () {
+    $proj = Projeto::find(4);
+    if (isset($proj)) {
+        $proj->desenvolvedores()->detach([1,2,3]);
+    }
 });
