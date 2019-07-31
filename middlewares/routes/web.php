@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\PrimeiroMiddleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +13,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'teste';
 });
+
+Route::get('/usuarios', 'UsuarioControlador@index');
