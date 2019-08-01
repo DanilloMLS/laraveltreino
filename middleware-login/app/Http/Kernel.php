@@ -3,8 +3,6 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
-use App\Http\Middleware\SegundoMiddleware;
-use App\Http\Middleware\TerceiroMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -37,8 +35,6 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            //\App\Http\Middleware\PrimeiroMiddleware::class,
-            //SegundoMiddleware::class,
         ],
 
         'api' => [
@@ -64,9 +60,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'primeiro' => \App\Http\Middleware\PrimeiroMiddleware::class,
-        'segundo' => SegundoMiddleware::class,
-        'terceiro' => TerceiroMiddleware::class
     ];
 
     /**
