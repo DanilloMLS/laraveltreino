@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //tamanho da string deve ser informado antes, por causa do email
+        \Illuminate\Support\Facades\Schema::defaultStringLength(191);
     }
 }
