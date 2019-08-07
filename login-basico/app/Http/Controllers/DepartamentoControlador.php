@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Produto;
+use App\Departamento;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class ProdutoControlador extends Controller
+class DepartamentoControlador extends Controller
 {
-
-    //Por aqui todos os métodos do controller estarão protegidos
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,13 +15,23 @@ class ProdutoControlador extends Controller
      */
     public function index()
     {
-        echo "<h4>Lista de produtos</h4>";
+        echo "<h4>Lista de Categorias</h4>";
         echo "<ul>";
-        echo "<li>Macarrão</li>";
-        echo "<li>Feijão</li>";
-        echo "<li>Carne</li>";
-        echo "<li>Queijo</li>";
+        echo "<li>Alimentos</li>";
+        echo "<li>Eletrônicos</li>";
+        echo "<li>Informática</li>";
         echo "</ul>";
+        echo "<hr>";
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            echo "<h4>Você está logado</h4>";
+            echo "<p>".$user->name."</p>";
+            echo "<p>".$user->email."</p>";
+            echo "<p>".$user->id."</p>";
+        } else {
+            echo "<h4>Você não está logado!</h4>";
+        }
     }
 
     /**
@@ -54,10 +58,10 @@ class ProdutoControlador extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Produto  $produto
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function show(Produto $produto)
+    public function show(Departamento $departamento)
     {
         //
     }
@@ -65,10 +69,10 @@ class ProdutoControlador extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Produto  $produto
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function edit(Produto $produto)
+    public function edit(Departamento $departamento)
     {
         //
     }
@@ -77,10 +81,10 @@ class ProdutoControlador extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Produto  $produto
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, Departamento $departamento)
     {
         //
     }
@@ -88,10 +92,10 @@ class ProdutoControlador extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Produto  $produto
+     * @param  \App\Departamento  $departamento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Produto $produto)
+    public function destroy(Departamento $departamento)
     {
         //
     }

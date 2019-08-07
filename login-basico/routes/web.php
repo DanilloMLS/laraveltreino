@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Aqui somente esta routa estará protegida
+//Route::get('/produtos', 'ProdutoControlador@index')->middleware('auth');
+
+Route::get('/produtos', 'ProdutoControlador@index')->name('produtos');
+
+Route::get('/departamentos', 'DepartamentoControlador@index');
+
+Route::get('/usuario', function () {
+    return view('usuario');
+});
